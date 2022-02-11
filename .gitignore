@@ -1,0 +1,15 @@
+# Ignore folders
+/build
+/devel
+/.vscode/*
+
+# Ignore file extensions
+*.pyc
+*.tgz
+
+# Ignore specific files
+src/CMakeLists.txt
+.catkin_workspace
+
+# Add some vscode settings
+!/.vscode/settings.json
