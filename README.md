@@ -7,7 +7,7 @@ Your robot workspace should have a launch file that is responsible for:
 
 See the [example launch file](src/example_robot_brain/launch/task_1.launch).
 
-The robot used in the simulation is the Clearpath Jackal, you can find detailed instructions and documentation at http://www.clearpathrobotics.com/assets/guides/kinetic/jackal/simulation.html. Be aware that the Jackal comes with a GPS but that the use of a GNSS receiver is not allowed except for the Free Style task. The focus for the other tasks in terms of localisation shall be on relative positioning and sensor based behaviours.
+The robot used in the simulation is the Clearpath Jackal, you can find detailed instructions and documentation at http://www.clearpathrobotics.com/assets/guides/noetic/jackal/simulation.html. Be aware that the Jackal comes with a GPS but that the use of a GNSS receiver is not allowed except for the Free Style task. The focus for the other tasks in terms of localisation shall be on relative positioning and sensor based behaviours.
 
 ---
 **NOTE**
