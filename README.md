@@ -14,6 +14,7 @@ The robot used in the simulation is the Clearpath Jackal, you can find detailed 
 
 It is important that the `virtual_maize_field` package is present in the `src` directory of your workspace. You can add this package to your own workspace by:
 ```commandline
+cd src
 git submodule add https://github.com/FieldRobotEvent/virtual_maize_field
 ```
 ---
@@ -21,9 +22,9 @@ git submodule add https://github.com/FieldRobotEvent/virtual_maize_field
 ## Install workspace
 To use this workspace, clone it to your computer, install the depenencies, build the packages and source the workspace:
 ```bash
-git clone https://github.com/FieldRobotEvent/example_ws --recurse-submodules
+git clone https://github.com/FieldRobotEvent/example_ws --recurse-submodules ~/example_ws
 rosdep install -y --from-paths ~/example_ws --ignore-src
-cd ~example_ws
+cd ~/example_ws
 catkin_make
 source ~/example_ws/devel/setup.bash
 ```
@@ -46,21 +47,19 @@ This allows you to have as much freedom as you desire in completing the tasks, w
 docker build . -t robot_workspace
 ```
 
-After building the image, an image with the name `robot_workspace` should be available in Docker. You can check this by running the `docker images` command.
+After building the image, an image with the name `robot_workspace` should be available in Docker. You can check this by running the `docker images` command. More information how to create your own robot Dockerfile is available in the [competition environment](https://github.com/FieldRobotEvent/competition_environment). 
 
-To test your robot in the Docker environent, clone the [competition environment](https://github.com/FieldRobotEvent/competition_environment) and follow the instructions from there.
+To test your robot in the competition environment using Docker, clone the [competition environment](https://github.com/FieldRobotEvent/competition_environment) and follow the instructions from there.
 
 To save the docker image as file, run `docker image save robot_workspace | gzip -c - > robot_workspace.tgz`. This can take a few minutes.
 
-## Hints for starting your robot container from scratch
-* Be aware of the mounts we are going to use in the docker-compose.yml files found in the [competition environment](https://github.com/FieldRobotEvent/competition_environment). We will be using these mount points (and only these mount points), so make sure you expose those VOLUMEs in your container for us to use. This probably won't look pretty if you're building from scratch, but you will have to deal with it.
-* The `simulation_container` runs a rosmaster at `http://simulation:11311`, as stated in the ENV field in the [example DOCKERFILE](Dockerfile). You will need to communicate to this port to interact with gazebo.
-* Make sure your CMD is set correctly - we do not plan on overriding this in the docker-compose.yml file we will use in competition mode. 
+## Troubleshooting
+| Error | Cause | Solution |
+|---|---| --- |
+| `Could not open file[/home/.../example_ws/src/virtual_maize_field/worlds/generated.world]` when launching Gazebo | There is no world file generated. | Generate a world file by (for example) `rosrun virtual_maize_field create_task_1_mini`. |
+| `VMware: vmw_ioctl_command error Invalid argument.` by launching Gazebo | Graphics problem in virtual machine. | Execute `echo "export SVGA_VGPU10=0" >> ~/.profile` in the terminal and reboot your virtual machine. |
+| `Error in REST request` when launching Gazebo | Wrong link in Gazebo configuration. | Open `~/.ignition/fuel/config.yaml` and change the line: `url: https://api.ignitionfuel.org` to `url:  https://api.ignitionrobotics.org`. |
+| Lidar data on the topic `front/scan` only returns ranges with the value `inf`, even though in simulation the lidar should ‘see’ certain objects within its range. | Graphics problem. | Execute `export LIBGL_ALWAYS_SOFTWARE=1` in the terminal in which you launch gazebo. You have to run this command before starting gazebo. This solves the problem with the lidar, but might have some consequences on the rendering speed of gazebo. |
 
-Beyond that, you are free to completely rebuild the entire environment as you see fit. 
+If you have another error or the provided solution does not work, create a [new issue](https://github.com/FieldRobotEvent/example_ws/issues). Help expanding this list by making a [pull request](https://github.com/FieldRobotEvent/example_ws/pulls).
 
-## Trouble shooting
-* `Could not open file[/home/.../example_ws/src/virtual_maize_field/worlds/generated.world]` by launching Gazebo: There is no world file generated. Generate a world file by (for example) `rosrun virtual_maize_field create_task_1_mini`.
-* `VMware: vmw_ioctl_command error Invalid argument.` by launching Gazebo: Execute `echo "export SVGA_VGPU10=0" >> ~/.profile` in the terminal and reboot your virtual machine. 
-* `Error in REST request` when launching gazebo: Open `~/.ignition/fuel/config.yaml` and change the line: `url: https://api.ignitionfuel.org` to `url:  https://api.ignitionrobotics.org`.
-* If the lidar data on the topic `front/scan` only returns ranges with the value `inf`, even though in simulation the lidar should ‘see’ certain objects within its range, you have to execute `export LIBGL_ALWAYS_SOFTWARE=1` in the terminal in which you launch gazebo. You have to run this command before starting gazebo. This solves the problem with the lidar, but might have some consequences on the rendering speed of gazebo. 
