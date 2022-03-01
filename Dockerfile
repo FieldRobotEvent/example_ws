@@ -1,4 +1,4 @@
-# Start with a ros-noetic-desktop-full installation. If needed, you can change this to use ROS Melodic as well.
+# Start with a ros-noetic-desktop-full installation. If needed, you can change this to use ROS Melodic or ROS2 as well.
 FROM osrf/ros:noetic-desktop-full
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -28,7 +28,7 @@ RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sud
 RUN apt-get -y remove curl
 
 # Copy the content of the src folder into the container in the folder '/catkin/src'. You can replace this by cloning your workspace from GIT
-# using 'RUN git clone https://github.com/my-robot-repository /catkin', but be sure to put the files in a folder named '/catkin'! 
+# using 'RUN git clone https://github.com/my-robot-repository /catkin' if you like, but be sure to put the files in a folder named '/catkin'! 
 COPY src /catkin/src
 
 # Install the dependencies of the repository that are listed in the packages.xml files.
@@ -39,7 +39,7 @@ RUN apt-get update && \
 # Catkin_make your package and source the setup.bash
 RUN bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && cd /catkin && catkin_make"
 
-# Add the setup.bash to your ROS entrypoint (needed by Docker).
+# Add the setup.bash to your ROS entrypoint (needed by Docker). This automatically sources your workspace in the CMD command below.
 RUN sed -i 's|^\(source .*\)|\1 \&\& source /catkin/devel/setup.bash|g' /ros_entrypoint.sh
 
 # Mountable location that contains map data for tasks 2/3 and where we expect pred_map.csv to go (in task 2). You cannot change these
@@ -47,10 +47,11 @@ RUN sed -i 's|^\(source .*\)|\1 \&\& source /catkin/devel/setup.bash|g' /ros_ent
 VOLUME ["/catkin/src/virtual_maize_field/map"]
 VOLUME ["/catkin/src/virtual_maize_field/launch"]
 
-# Setup the ROS master to communicate with the gazebo container. 
+# Setup the ROS master to communicate with the simulation container. 
 ENV ROS_MASTER_URI=http://simulation:11311
 
 # Launch your robot. The wait command ensures that this launch file waits for the simulation container to start the ROS server. Change
 # this line to start your own robot. The ${TASK_NUMBER} variable will be 1 during task 1, 2 during task 2 etc. You can use this 
-# variable set the robot task as is done below. Your launch file is responsible for spawning the robot description.
+# variable set the robot task as is done below. Your launch file is responsible for spawning the robot description in the virual_maize_field
+# package.
 CMD  roslaunch example_robot_brain task_${TASK_NUMBER}.launch --wait --screen; sleep 999999
