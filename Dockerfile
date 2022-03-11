@@ -1,4 +1,6 @@
-# Start with a ros-noetic-desktop-full installation. If needed, you can change this to use ROS Melodic or ROS2 as well.
+# Start with a ros-noetic-desktop-full installation. If needed, you can change this to use ROS Melodic or ROS2 as 
+# well. If you need CUDA capabilities within your robot workspace, have a look at 
+# https://github.com/FieldRobotEvent/competition_environment/blob/main/doc/use_gpu_in_docker.md.
 FROM osrf/ros:noetic-desktop-full
 
 ENV DEBIAN_FRONTEND=noninteractive
