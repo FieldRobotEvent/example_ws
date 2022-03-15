@@ -16,7 +16,7 @@ if __name__ == "__main__":
     with open(dp_path) as direction_f:
         directions = direction_f.readline()
 
-    rospy.loginfo(f"driving directions are: {directions}")
+    rospy.loginfo(f"Driving directions are: {directions}")
 
     try:
         # Drive for 5 seconds

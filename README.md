@@ -56,7 +56,7 @@ To save the docker image as file, run `docker image save robot_workspace | gzip 
 ## Troubleshooting
 | Error | Cause | Solution |
 |---|---| --- |
-| `Could not open file[(...)/virtual_maize_field/worlds/generated.world]` when launching Gazebo | There is no world file generated. | Generate a world file by e.g. `rosrun virtual_maize_field fre22_task_1_mini`. |
+| `Could not open file[(...)/virtual_maize_field/worlds/generated.world]` when launching Gazebo | There is no world file generated. | Generate a world file by e.g. `rosrun virtual_maize_field fre22_task_navigation_mini`. |
 | `VMware: vmw_ioctl_command error Invalid argument.` by launching Gazebo | Graphics problem in virtual machine. | Execute `echo "export SVGA_VGPU10=0" >> ~/.profile` in the terminal and reboot your virtual machine. |
 | `Error in REST request` when launching Gazebo | Wrong link in Gazebo configuration. | Open `~/.ignition/fuel/config.yaml` and change the line: `url: https://api.ignitionfuel.org` to `url:  https://api.ignitionrobotics.org`. |
 | Lidar data on the topic `front/scan` only returns ranges with the value `inf`, even though in simulation the lidar should ‘see’ certain objects within its range. | Graphics problem. | Execute `export LIBGL_ALWAYS_SOFTWARE=1` in the terminal in which you launch gazebo. You have to run this command before starting gazebo. This solves the problem with the lidar, but might have some consequences on the rendering speed of gazebo. |

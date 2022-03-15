@@ -18,7 +18,7 @@ if __name__ == "__main__":
     with open(dp_path) as direction_f:
         directions = direction_f.readline()
 
-    rospy.loginfo(f"driving directions are: {directions}")
+    rospy.loginfo(f"Driving directions are: {directions}")
 
     try:
         # Drive for 5 seconds
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         weed_placements, litter_placements = obj_mapper()
         out_map_path = os.path.join(pkg_path, "map/pred_map.csv")
         with open(out_map_path, "w") as f:
-            rospy.loginfo("writing map")
+            rospy.loginfo("Writing map")
             writer = csv.writer(f)
             header = ["X", "Y", "kind"]
             writer.writerow(header)
