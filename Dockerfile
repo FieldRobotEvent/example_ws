@@ -53,7 +53,7 @@ VOLUME ["/catkin/src/virtual_maize_field/launch"]
 ENV ROS_MASTER_URI=http://simulation:11311
 
 # Launch your robot. The wait command ensures that this launch file waits for the simulation container to start the ROS server. Change
-# this line to start your own robot. The ${TASK_NUMBER} variable will be 1 during task 1, 2 during task 2 etc. You can use this 
+# this line to start your own robot. The ${TASK} variable will either be navigation or mapping, depending on the current task. You can use this 
 # variable set the robot task as is done below. Your launch file is responsible for spawning the robot description in the virual_maize_field
 # package.
-CMD  roslaunch example_robot_brain task_${TASK_NUMBER}.launch --wait --screen; sleep 999999
+CMD  roslaunch example_robot_brain task_${TASK}.launch --wait --screen; sleep 999999
