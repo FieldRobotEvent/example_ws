@@ -5,7 +5,7 @@ Your robot workspace should have a launch file that is responsible for:
 * Spawning the robot using the `robot_spawner.launch` file in the `virtual_maize_field` package.
 * The robots behaviour and all its required nodes.
 
-See the [example launch file](src/example_robot_brain/launch/task_1.launch).
+See the [example launch file](src/example_robot_brain/launch/task_navigation.launch).
 
 The robot used in the simulation is the Clearpath Jackal, you can find detailed instructions and documentation at http://www.clearpathrobotics.com/assets/guides/noetic/jackal/simulation.html. Be aware that the Jackal comes with a GPS but that the use of a GNSS receiver is not allowed except for the Free Style task. The focus for the other tasks in terms of localisation shall be on relative positioning and sensor based behaviours.
 
@@ -36,7 +36,7 @@ roslaunch virtual_maize_field simulation.launch
 ```
 2. Launch your robot software:
 ```commandline
-roslaunch example_robot_brain task_1.launch
+roslaunch example_robot_brain task_navigation.launch
 ```
 
 ## Build the Docker image of your robot
@@ -56,7 +56,7 @@ To save the docker image as file, run `docker image save robot_workspace | gzip 
 ## Troubleshooting
 | Error | Cause | Solution |
 |---|---| --- |
-| `Could not open file[(...)/virtual_maize_field/worlds/generated.world]` when launching Gazebo | There is no world file generated. | Generate a world file by (for example) `rosrun virtual_maize_field create_task_1_mini`. |
+| `Could not open file[(...)/virtual_maize_field/worlds/generated.world]` when launching Gazebo | There is no world file generated. | Generate a world file by e.g. `rosrun virtual_maize_field fre22_task_1_mini`. |
 | `VMware: vmw_ioctl_command error Invalid argument.` by launching Gazebo | Graphics problem in virtual machine. | Execute `echo "export SVGA_VGPU10=0" >> ~/.profile` in the terminal and reboot your virtual machine. |
 | `Error in REST request` when launching Gazebo | Wrong link in Gazebo configuration. | Open `~/.ignition/fuel/config.yaml` and change the line: `url: https://api.ignitionfuel.org` to `url:  https://api.ignitionrobotics.org`. |
 | Lidar data on the topic `front/scan` only returns ranges with the value `inf`, even though in simulation the lidar should ‘see’ certain objects within its range. | Graphics problem. | Execute `export LIBGL_ALWAYS_SOFTWARE=1` in the terminal in which you launch gazebo. You have to run this command before starting gazebo. This solves the problem with the lidar, but might have some consequences on the rendering speed of gazebo. |
