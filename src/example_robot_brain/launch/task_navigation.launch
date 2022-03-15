@@ -10,5 +10,5 @@
   </include>
 
   <!-- Run all the scripts that make your robot perform like a champ -->
-  <node pkg="example_robot_brain" type="task_4.py" name="task_4_node" />
+  <node pkg="example_robot_brain" type="task_navigation.py" name="task_navigation_node" />
 </launch>
