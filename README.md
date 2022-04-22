@@ -1,5 +1,5 @@
 # Example robot workspace
-This is an example workspace to show how to setup a robot workspace that works with the simulation environment that will be used at the Field Robot Event.
+This is an example workspace to show how to setup a robot workspace that works with the simulation environment that will be used at the Field Robot Event. You are free to implement your own robot, see the rules on the [Field Robot Event website](https://www.fieldrobot.com/event/index.php/contest-hybrid/tasks-h/).
 
 Your robot workspace should have a launch file that is responsible for:
 * Spawning the robot using the `robot_spawner.launch` file in the `virtual_maize_field` package.
