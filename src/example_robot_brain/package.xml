@@ -26,8 +26,8 @@
   <build_depend>rospy</build_depend>
 
   <exec_depend>rospy</exec_depend>
-  <exec_depend>virtual_maize_field</exec_depend>
-  <exec_depend>example_robot_description</exec_depend>
+  <!-- <exec_depend>virtual_maize_field</exec_depend> -->
+  <!-- <exec_depend>example_robot_description</exec_depend> -->
   <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-rospkg</exec_depend>
   <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-rospkg</exec_depend>
   <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-numpy</exec_depend>
