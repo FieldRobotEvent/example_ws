@@ -6,3 +6,4 @@ REM config, but with a SICK LMS100 series LIDAR on the front,
 REM pointing forward.
 
 set JACKAL_LASER=1
+set JACKAL_FLEA3=1

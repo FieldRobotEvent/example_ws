@@ -69,6 +69,13 @@
     </joint>
   </xacro:if>
 
+  <xacro:if value="$(optenv JACKAL_REALSENSE 0)">
+    <xacro:include filename="$(find example_robot_description)/urdf/realsense_d435.urdf.xacro" />
+    <xacro:realsense_d435 parent="front_mount" name="realsense">
+      <origin xyz="0.1 0 0" rpy="0 0 0" />  
+    </xacro:realsense_d435>
+  </xacro:if>
+
   <xacro:include filename="$(find example_robot_description)/urdf/accessories/stereo_camera_mount.urdf.xacro" />
   <!-- If enabled, generates a pair of flea3 cameras for stereo vision with a tilt of 30 degrees. -->
   <!-- Disabled temporarily due to metapackage issue. -->
