@@ -52,6 +52,9 @@ VOLUME ["/catkin/src/virtual_maize_field/launch"]
 # Setup the ROS master to communicate with the simulation container. 
 ENV ROS_MASTER_URI=http://simulation:11311
 
+# Create default task. We override this variable in the docker-compose file, so you can use this variable in the CMD tag.
+ENV TASK=navigation
+
 # Launch your robot. The wait command ensures that this launch file waits for the simulation container to start the ROS server. Change
 # this line to start your own robot. The ${TASK} variable will either be navigation or mapping, depending on the current task. You can use this 
 # variable set the robot task as is done below. Your launch file is responsible for spawning the robot description in the virual_maize_field
