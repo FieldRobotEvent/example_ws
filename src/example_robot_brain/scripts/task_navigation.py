@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 import os
-
-import rospy
 import rospkg
+import rospy
 
-from navigation import driver
+from navigation import drive
 
 if __name__ == "__main__":
     rospy.init_node("task_navigation_node")
@@ -19,7 +18,11 @@ if __name__ == "__main__":
     rospy.loginfo(f"Driving directions are: {directions}")
 
     try:
-        # Drive for 5 seconds
-        driver(5)
+        # Drive
+        rospy.loginfo("Starting to drive")
+        
+        drive()
+        
+        rospy.loginfo("Done driving")
     except rospy.ROSInterruptException:
         pass
