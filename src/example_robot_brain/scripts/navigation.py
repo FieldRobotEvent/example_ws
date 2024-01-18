@@ -15,4 +15,3 @@ def drive(duration=10):
         msg.linear.x = 1
         pub.publish(msg)
         rate.sleep()
-

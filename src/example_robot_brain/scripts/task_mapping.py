@@ -3,22 +3,20 @@ import os
 import csv
 
 import rospy
-import rospkg
 
 from navigation import drive
 from detection import detect
 
 from std_msgs.msg import String
 
+from virtual_maize_field import get_markers_file
+
 
 if __name__ == "__main__":
     rospy.init_node("task_mapping_node")
 
-    pkg_path = rospkg.RosPack().get_path("virtual_maize_field")
-
     # Read the relative position of the pillars
-    markers_path = os.path.join(pkg_path, "map/markers.csv")
-    with open(markers_path, "r") as f:
+    with open(get_markers_file(), "r") as f:
         reader = csv.reader(f)
 
         # Skip header
@@ -34,7 +32,7 @@ if __name__ == "__main__":
 
     # Create path to file where we have to save the predicted coordinates of the
     # litter and weeds
-    out_map_path = os.path.join(pkg_path, "map/pred_map.csv")
+    out_map_path = os.path.join(os.path.expanduser("~"), "pred_map.csv")
 
     try:
         # Open output file
@@ -63,7 +61,7 @@ if __name__ == "__main__":
 
                 # Write found position to file
                 writer.writerow([obj_position[0], obj_position[1], obj_type])
-            
+
             rospy.loginfo("Done driving")
 
     except rospy.ROSInterruptException:

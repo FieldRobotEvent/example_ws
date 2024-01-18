@@ -10,6 +10,7 @@ DETECTIONS = [
 ]
 i = 0
 
+
 # Does not actually detect anything, just returns hardcoded locations
 def detect():
     global i
