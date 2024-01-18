@@ -9,14 +9,14 @@ from detection import detect
 
 from std_msgs.msg import String
 
-from virtual_maize_field import get_markers
+from virtual_maize_field import get_markers_file
 
 
 if __name__ == "__main__":
     rospy.init_node("task_mapping_node")
 
     # Read the relative position of the pillars
-    with open(get_markers(), "r") as f:
+    with open(get_markers_file(), "r") as f:
         reader = csv.reader(f)
 
         # Skip header
