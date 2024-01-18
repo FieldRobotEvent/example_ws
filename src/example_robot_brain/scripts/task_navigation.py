@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-import os
-import rospkg
+
 import rospy
 
 from navigation import drive
 
+from virtual_maize_field import get_driving_pattern
+
+
 if __name__ == "__main__":
     rospy.init_node("task_navigation_node")
 
-    # Read the driving directions from the file
-    pkg_path = rospkg.RosPack().get_path("virtual_maize_field")
-    dp_path = os.path.join(pkg_path, "map/driving_pattern.txt")
-
-    with open(dp_path) as direction_f:
+    with open(get_driving_pattern()) as direction_f:
         directions = direction_f.readline()
 
     rospy.loginfo(f"Driving directions are: {directions}")
@@ -20,9 +18,9 @@ if __name__ == "__main__":
     try:
         # Drive
         rospy.loginfo("Starting to drive")
-        
+
         drive()
-        
+
         rospy.loginfo("Done driving")
     except rospy.ROSInterruptException:
         pass
